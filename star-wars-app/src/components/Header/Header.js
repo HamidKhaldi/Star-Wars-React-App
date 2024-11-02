@@ -1,24 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import homeIconImg from "../../assets/images/home-icon.png";
-import searchIcon from "../../assets/images/search-icon.png";
+
 
 const Header = () => {
+  const [showBtn, setShowBtn] = useState(true);
+  const location = useLocation();
+  console.log('location ', location);
+
+  useEffect(()=>{    
+    location.pathname === '/favourite-characters' ? setShowBtn(false) : setShowBtn(true);
+  }, [location]);
+  
+
   return (
     <>
       <header className="swapi__header">
         <Link to="/">
           <img src={homeIconImg} className="swapi__home-icon" alt="home" />
         </Link>
-        <div class="swapi__search-container">
+        { showBtn && <Link to="/favourite-characters" className="swapi__favourites-btn">Favourite Characters</Link> }
+        <div className="swapi__search-container">
           <input
             type="text"
             placeholder="Search..."
-            class="swapi__search-input"
+            className="swapi__search-input"
           />
-          <button class="swapi__search-button">
+          <button className="swapi__search-button">
             <svg
-              class="search-icon"
+              className="swapi__search-icon"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
             >

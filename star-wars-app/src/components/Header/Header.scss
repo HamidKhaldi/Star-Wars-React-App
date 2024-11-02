@@ -1,8 +1,11 @@
+@use 'sass-mq' as mq;
+
 .swapi__header{
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+    position: relative;
 }
 
 .swapi__home-icon{
@@ -31,8 +34,8 @@
 
 .swapi__search-button {
     position: absolute;
-    top: 80%;
-    right: -10px;
+    top: 50%;
+    right: 10px;
     transform: translateY(-50%);
     background: none;
     border: none;
@@ -49,4 +52,31 @@
 
 .swapi__search-button:hover .swapi__search-icon {
     fill: #333; 
+}
+
+.swapi__favourites-btn {
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    font-weight: 500;
+    color: $offBlack;
+    background-color: $yellow;
+    padding: 10px 20px;
+    border-radius: 5px;
+    position: absolute;
+    left: 2rem;
+    top: 85%;
+    transition: .3s ease-in-out;
+
+    &:hover, &:active {
+        transform: scale(1.1);
+    }
+
+    @include mq.mq('tablet') {
+        position: relative;
+        left: unset;
+        top: unset;
+        margin-top: 2rem;
+    }
 }

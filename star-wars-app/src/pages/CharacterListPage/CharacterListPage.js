@@ -64,14 +64,9 @@ const CharacterListPage = () => {
     if (previousPage) setCurrentPage(previousPage);
   };
 
-//   if (loading) return <DataMessage message={"Loading..."} />;
-//   if (error) return <DataMessage message={"Error fetching data."} />;
 
   return (
     <>
-      <Link to="/favourite-characters" className="swapi__favourites-btn">
-        Favourite Characters
-      </Link>
       <h1 className="swapi__page-header">Star Wars Character List</h1>
       <div className="swapi__character-list-container">
         {people && people.length !== 0 ? (
