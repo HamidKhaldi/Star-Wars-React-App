@@ -2,9 +2,9 @@ import React, { useState, createContext } from "react";
 export const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-    const [characters, setCharacters] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     return (
-        <DataContext.Provider value={{ characters, setCharacters }}>
+        <DataContext.Provider value={{ searchTerm, setSearchTerm }}>
             {children}
         </DataContext.Provider>
     );

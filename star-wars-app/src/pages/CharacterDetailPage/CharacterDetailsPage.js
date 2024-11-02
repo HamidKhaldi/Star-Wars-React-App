@@ -12,7 +12,7 @@ const CharacterDetailsPage = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        console.log('id ', id);
+        // console.log('id ', id);
         const fetchCharacter = async () => {
             try {
                 const response = await fetch(`https://swapi.dev/api/people/${id}/`);

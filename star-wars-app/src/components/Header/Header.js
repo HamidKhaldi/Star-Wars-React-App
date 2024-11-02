@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { DataContext } from "../../store/data-context";
 import homeIconImg from "../../assets/images/home-icon.png";
-import DataMessage from "../DataMessage/DataMessage";
+
 
 const Header = () => {
   const [showBtn, setShowBtn] = useState(true);
   const [pageName, setPageName] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [searchResults, setSearchResults] = useState(null);
   const location = useLocation();
-  const searchInput = document.getElementById('searchInput');
-
+  const { searchTerm, setSearchTerm } = useContext(DataContext);
+  
   useEffect(() => {
     location.pathname === "/favourite-characters"
       ? setShowBtn(false)
@@ -30,20 +28,8 @@ const Header = () => {
 
   }, [location, pageName]);
 
-  const searchData = async () => {
-      let str = searchInput.value; 
-      try {
-          const response = await fetch(`https://swapi.dev/api/people/?search=${str}`);
-          if(!response.ok) {throw new Error('Error fetching search results!')};
-          const searchResults = await response.json();
-          console.log('search results ', searchResults);
-          return 
-      } catch (err) {
-        setError("Failed to load character data");
-        console.error("Error:", err);
-    } finally {
-        setLoading(false);
-    }
+  const handleInputChange =  (e) => {
+      setSearchTerm(e.target.value);
   }
   
   return (
@@ -63,7 +49,7 @@ const Header = () => {
             placeholder="Find a Star Wars character..."
             className="swapi__search-input"
             id="searchInput"
-            onChange={searchData}
+            onChange={handleInputChange}
           />
           <button className="swapi__search-button">
             <svg

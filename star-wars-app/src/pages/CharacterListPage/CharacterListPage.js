@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import CharacterList from "../../components/CharacterList/CharacterList";
 import DataMessage from "../../components/DataMessage/DataMessage";
+import { DataContext } from "../../store/data-context";
 
 const CharacterListPage = () => {
   const [people, setPeople] = useState([]);
@@ -12,6 +13,9 @@ const CharacterListPage = () => {
   const [previousPage, setPreviousPage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { searchTerm, setSearchTerm } = useContext(DataContext);
+
+  console.log('searchTerm ', searchTerm);
 
   const getPlanet = async (url) => {
     try {
@@ -55,8 +59,14 @@ const CharacterListPage = () => {
       }
     };
 
-    fetchPeople(currentPage);
-  }, [currentPage]);
+    if(searchTerm) {
+        const searchUrl = `https://swapi.dev/api/people/?search=${searchTerm}`
+        fetchPeople(searchUrl);
+    } else {
+        fetchPeople(currentPage);
+    }
+    
+  }, [currentPage, searchTerm]);
 
   const handleNext = () => {
     if (nextPage) setCurrentPage(nextPage);
