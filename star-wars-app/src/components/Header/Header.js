@@ -6,7 +6,7 @@ const Header = () => {
   const [showBtn, setShowBtn] = useState(true);
   const [pageName, setPageName] = useState(null);
   const location = useLocation();
-  console.log("location ", location);
+  // console.log("location ", location);
 
   useEffect(() => {
     location.pathname === "/favourite-characters"
@@ -26,7 +26,7 @@ const Header = () => {
       default:
         setPageName("Star Wars App");
     }
-  }, [location, pageName]);
+  }, []);
 
   return (
     <>

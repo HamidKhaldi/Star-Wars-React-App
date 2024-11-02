@@ -3,10 +3,104 @@ import { Link } from "react-router-dom";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
 import heartIcon from "../../assets/images/heart-icon.png";
 
-const CharacterDetailsCard = () => {
+const CharacterDetailsCard = (character) => {
+  const [characterDetails, setCharacterDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const getFilmName = async (url) => {
+    // console.log('url ', url);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Error retrieving film name!");
+      const film = await response.json();
+      //console.log('film ', film);
+      //console.log("name ", film.title);
+      return film.title || "Unknown";
+    } catch (error) {
+      console.error("error fetching film data ", error);
+    }
+  };
+
+  const getStarshipName = async (url) => {
+    // console.log('url ', url);
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Error retrieving ship name!");
+      const ship = await response.json();
+      console.log('ship ', ship);
+      //console.log("name ", ship.name);
+      return ship.name || "Unknown";
+    } catch (error) {
+      console.error("error fetching ship data ", error);
+    }
+  };
+
+
+  useEffect(()=>{
+
+    const fetchAssetsNames = async (character) => {
+      console.log('character ', character);
+      character ? setCharacterDetails(character.character) : setCharacterDetails(null);
+  
+      try{
+        if(characterDetails){
+          if(characterDetails.films && characterDetails.films.length > 0){
+            // console.log('characterDetails.films ',characterDetails.films);
+              let filmNames = [];
+              await Promise.all(
+                characterDetails.films.map(async film => {
+                  const filmName = await getFilmName(film);
+                  return filmNames.push(filmName);
+              }));
+
+              // console.log('filmNames ', filmNames);
+              setCharacterDetails((prevDetails) => ({
+                ...prevDetails,
+                film_names: filmNames,
+              }));
+             
+          }
+    
+          if(characterDetails.starships && characterDetails.starships.length > 0){
+            console.log('characterDetails.starships ', characterDetails.starships);
+              let starshipNames = [];
+              await Promise.all(
+                characterDetails.starships.map(async starship => {
+                  const starshipName = await getStarshipName(starship);
+                  return starshipNames.push(starshipName);
+              }));
+
+              console.log('starshipNames ', starshipNames);
+              setCharacterDetails((prevDetails) => ({
+                ...prevDetails,
+                starship_names: starshipNames,
+              }));
+             
+          }
+        }
+    
+      } catch (err) {
+        setError("Failed to load data");
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+
+    }
+    
+    fetchAssetsNames(character);
+    
+    
+  }, [character]);
+
+  useEffect(()=> {
+    console.log('characterDetails after', characterDetails);
+  }, [characterDetails]);
+
   return (
     <>
-      <div className="swapi__character-details-card">
+      {characterDetails && <div className="swapi__character-details-card">
         <img
           src={placeholderImg}
           className="swapi__character-details-card-img"
@@ -14,53 +108,36 @@ const CharacterDetailsCard = () => {
         />
         <ul className="swapi__character-details-details-list">
           <li className="swapi__character-details-details-list--item">
-            Name:
+            Name: {characterDetails.name}
           </li>
           <li className="swapi__character-details-details-list--item">
-            Hair Colour:
+            Hair Colour: {characterDetails.hair_color}
           </li>
           <li className="swapi__character-details-details-list--item">
-            Eye Colour: 
+            Eye Colour: {characterDetails.eye_color}
           </li>
           <li className="swapi__character-details-details-list--item">
-            Gender: 
+            Gender: {characterDetails.gender}
           </li>
-          <li className="swapi__character-details-details-list--item">
+          { characterDetails.film_names && 
+             <li className="swapi__character-details-details-list--item">
               Films: 
               <ul className="swap__character-films--list">
-                <li className="swap__character-films--list--item">
-                  film 1
-                </li>
-                <li className="swap__character-films--list--item">
-                  film 2
-                </li>
-                <li className="swap__character-films--list--item">
-                  film 3
-                </li>
-                <li className="swap__character-films--list--item">
-                  film 4
-                </li>
+              { characterDetails.film_names.map((item, index) => (<li key={index} className="swap__character-films--list--item">
+                  {item},
+                </li>)) }
               </ul>
-          </li>
-          <li className="swapi__character-details-details-list--item">
+          </li> }
+          { characterDetails.starship_names && <li className="swapi__character-details-details-list--item">
           Starships: 
               <ul className="swap__character-films--list">
-                <li className="swap__character-films--list--item">
-                  starship 1
-                </li>
-                <li className="swap__character-films--list--item">
-                  starship 2
-                </li>
-                <li className="swap__character-films--list--item">
-                  starship 3
-                </li>
-                <li className="swap__character-films--list--item">
-                  starship 4
-                </li>
+              { characterDetails.starship_names.map((item, index) => (<li key={index} className="swap__character-films--list--item">
+                  {item},
+                </li>)) }
               </ul>
-          </li>
+          </li> }
         </ul>
-      </div>
+      </div> }
     </>
   );
 };

@@ -18,7 +18,6 @@ const CharacterListPage = () => {
       const response = await fetch(url);
       if (!response.ok) throw new Error("Error retrieving planet!");
       const planet = await response.json();
-      console.log("planet ", planet.name);
       return planet.name || "Unnknown";
     } catch (error) {
       console.error("error fetching homeworld data ", error);
