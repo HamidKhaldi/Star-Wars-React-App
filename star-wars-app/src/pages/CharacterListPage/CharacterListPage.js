@@ -79,13 +79,15 @@ const CharacterListPage = () => {
   return (
     <>
       <div className="swapi__character-list-container">
-        {people && people.length !== 0 ? (
+        { people && people.length !== 0 ? (
           <CharacterList people={people} />
         ) : loading ? (
           <DataMessage message="Loading..." />
         ) : error ? (
           <DataMessage message="Error fetching data." />
-        ) : null}
+        ) : searchTerm && people.length === 0 ? (
+            <DataMessage message="No Character names match the search term" />
+          ) : null }
         <div className="swapi__nav-btn-container">
           <button
             className="swapi__nav-btn"
