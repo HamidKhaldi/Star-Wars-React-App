@@ -1,0 +1,11 @@
+.App {
+    width: 100vw;
+    height: 100vh;
+    background: $offBlack;
+    font-weight: 300;
+    color: $offWhite;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizelegibility;
+    position: relative;
+    overflow-x: hidden;
+}

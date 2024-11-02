@@ -1,0 +1,10 @@
+
+@use 'sass-mq' as mq;
+
+.swapi__page-header {
+    color: red;
+
+  @include mq.mq('tablet') {
+    color: green;
+  }
+}
