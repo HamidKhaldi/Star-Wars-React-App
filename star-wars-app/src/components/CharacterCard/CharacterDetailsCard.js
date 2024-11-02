@@ -6,26 +6,26 @@ import heartIcon from "../../assets/images/heart-icon.png";
 const CharacterDetailsCard = () => {
   return (
     <>
-      <div className="swapi__character-card">
+      <div className="swapi__character-details-card">
         <img
           src={placeholderImg}
-          className="swapi__character-img"
+          className="swapi__character-details-card-img"
           alt="placeholder"
         />
-        <ul className="swapi__character-details-list">
-          <li className="swapi__character-details-list--item">
+        <ul className="swapi__character-details-details-list">
+          <li className="swapi__character-details-details-list--item">
             Name:
           </li>
-          <li className="swapi__character-details-list--item">
+          <li className="swapi__character-details-details-list--item">
             Hair Colour:
           </li>
-          <li className="swapi__character-details-list--item">
+          <li className="swapi__character-details-details-list--item">
             Eye Colour: 
           </li>
-          <li className="swapi__character-details-list--item">
+          <li className="swapi__character-details-details-list--item">
             Gender: 
           </li>
-          <li className="swapi__character-details-list--item">
+          <li className="swapi__character-details-details-list--item">
               Films: 
               <ul className="swap__character-films--list">
                 <li className="swap__character-films--list--item">
@@ -42,7 +42,7 @@ const CharacterDetailsCard = () => {
                 </li>
               </ul>
           </li>
-          <li className="swapi__character-details-list--item">
+          <li className="swapi__character-details-details-list--item">
           Starships: 
               <ul className="swap__character-films--list">
                 <li className="swap__character-films--list--item">
