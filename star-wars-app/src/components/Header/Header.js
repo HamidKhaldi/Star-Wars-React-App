@@ -1,33 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import homeIconImg from "../../assets/images/home-icon.png";
+import DataMessage from "../DataMessage/DataMessage";
 
 const Header = () => {
   const [showBtn, setShowBtn] = useState(true);
   const [pageName, setPageName] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
   const location = useLocation();
-  // console.log("location ", location);
+  const searchInput = document.getElementById('searchInput');
 
   useEffect(() => {
     location.pathname === "/favourite-characters"
       ? setShowBtn(false)
       : setShowBtn(true);
 
-    switch (location.pathname) {
-      case "/":
-        setPageName("Star Wars Characters");
-        break;
-      case "/character":
-        setPageName("Character Details");
-        break;
-      case "/favourite-characters":
-        setPageName("My Favourite Characters");
-        break;
-      default:
-        setPageName("Star Wars App");
+    // Set the page name based on the current path
+    if (location.pathname === "/") {
+      setPageName("Star Wars Characters");
+    } else if (location.pathname.startsWith("/character/")) {
+      setPageName("Character Details");
+    } else if (location.pathname === "/favourite-characters") {
+      setPageName("My Favourite Characters");
+    } else {
+      setPageName("Star Wars App");
     }
-  }, []);
 
+  }, [location, pageName]);
+
+  const searchData = async () => {
+      let str = searchInput.value; 
+      try {
+          const response = await fetch(`https://swapi.dev/api/people/?search=${str}`);
+          if(!response.ok) {throw new Error('Error fetching search results!')};
+          const searchResults = await response.json();
+          console.log('search results ', searchResults);
+          return 
+      } catch (err) {
+        setError("Failed to load character data");
+        console.error("Error:", err);
+    } finally {
+        setLoading(false);
+    }
+  }
+  
   return (
     <>
       <header className="swapi__header">
@@ -42,8 +60,10 @@ const Header = () => {
         <div className="swapi__search-container">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder="Find a Star Wars character..."
             className="swapi__search-input"
+            id="searchInput"
+            onChange={searchData}
           />
           <button className="swapi__search-button">
             <svg

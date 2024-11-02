@@ -11,17 +11,15 @@ const CharacterDetailsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log('id ', id);
-
-
     useEffect(() => {
+        console.log('id ', id);
         const fetchCharacter = async () => {
             try {
                 const response = await fetch(`https://swapi.dev/api/people/${id}/`);
                 if (!response.ok) throw new Error("Character not found");
                 const data = await response.json();
                 setCharacter(data);
-                console.log('character ', character);
+                //console.log('character ', character);
             } catch (err) {
                 setError("Failed to load character data");
                 console.error("Error:", err);

@@ -35,11 +35,14 @@ const CharacterListPage = () => {
 
         const data = await response.json();
         console.log("data ", data);
+
         const dataWithPlanets = await Promise.all(
           data.results.map(async (item) => {
-            return { ...item, planet: await getPlanet(item.homeworld) };
+            const itemId = item.url.split('/').filter(Boolean).pop();
+            return { ...item, id: itemId, planet: await getPlanet(item.homeworld) };
           })
         );
+
         setPeople(dataWithPlanets);
         setNextPage(data.next);
         setPreviousPage(data.previous);
@@ -62,7 +65,6 @@ const CharacterListPage = () => {
   const handlePrevious = () => {
     if (previousPage) setCurrentPage(previousPage);
   };
-
 
   return (
     <>
