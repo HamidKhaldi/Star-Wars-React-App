@@ -23,6 +23,10 @@ const CharacterCard = ({name, gender, planet}) => {
               Home Planet: {gender}
           </li>
         </ul>
+        <button className="swapi__add-favourite-cont">
+           <p className="swapi__add-favourite-para">Add to your favourite characters</p>
+           <img src={heartIcon} className="swapi__add-favourite-icon" alt="heart" />
+        </button>
       </div>
     </>
   );

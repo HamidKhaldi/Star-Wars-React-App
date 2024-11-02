@@ -15,8 +15,6 @@ const CharacterListPage = () => {
   const [error, setError] = useState(null);
   const { searchTerm, setSearchTerm } = useContext(DataContext);
 
-  console.log('searchTerm ', searchTerm);
-
   const getPlanet = async (url) => {
     try {
       const response = await fetch(url);
@@ -38,7 +36,6 @@ const CharacterListPage = () => {
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
-        console.log("data ", data);
 
         const dataWithPlanets = await Promise.all(
           data.results.map(async (item) => {
@@ -50,7 +47,7 @@ const CharacterListPage = () => {
         setPeople(dataWithPlanets);
         setNextPage(data.next);
         setPreviousPage(data.previous);
-        console.log("people ", people);
+        // console.log("people ", people);
       } catch (err) {
         setError("Failed to load data");
         console.error("Error:", err);

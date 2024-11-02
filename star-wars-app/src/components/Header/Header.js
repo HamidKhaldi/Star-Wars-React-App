@@ -40,6 +40,9 @@ const Header = () => {
   const clearInput = () => {
     setSearchTerm('');
     searchInput.value = null;
+    if(location.pathname !== "/"){
+      navigate('/');
+    }
   }
 
   return (

@@ -3,8 +3,9 @@ export const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [favouriteCharacters, setFavouriteCharacters] = useState([]);
     return (
-        <DataContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <DataContext.Provider value={{ searchTerm, setSearchTerm, favouriteCharacters, setFavouriteCharacters }}>
             {children}
         </DataContext.Provider>
     );
