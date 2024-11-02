@@ -9,7 +9,6 @@ const FavouritesPage = ({favouriteCharacters}) => {
 
     return (
         <>
-            <h1 className="swapi__page-header">Favourite Characters</h1>
             { favouriteCharacters ? <CharacterList /> : <DataMessage message={' No favourite characters at the moment! You need to pick some!'} /> }
         </>
         

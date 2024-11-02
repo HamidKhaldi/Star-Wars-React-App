@@ -9,7 +9,6 @@ const CharacterDetailsPage = () => {
 
     return (
         <>
-            <h1 className='swapi__page-header'>Character Details Page</h1>
             <CharacterDetailsCard />
         </>
         

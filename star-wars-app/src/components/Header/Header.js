@@ -2,16 +2,31 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import homeIconImg from "../../assets/images/home-icon.png";
 
-
 const Header = () => {
   const [showBtn, setShowBtn] = useState(true);
+  const [pageName, setPageName] = useState(null);
   const location = useLocation();
-  console.log('location ', location);
+  console.log("location ", location);
 
-  useEffect(()=>{    
-    location.pathname === '/favourite-characters' ? setShowBtn(false) : setShowBtn(true);
-  }, [location]);
-  
+  useEffect(() => {
+    location.pathname === "/favourite-characters"
+      ? setShowBtn(false)
+      : setShowBtn(true);
+
+    switch (location.pathname) {
+      case "/":
+        setPageName("Star Wars Characters");
+        break;
+      case "/character":
+        setPageName("Character Details");
+        break;
+      case "/favourite-characters":
+        setPageName("My Favourite Characters");
+        break;
+      default:
+        setPageName("Star Wars App");
+    }
+  }, [location, pageName]);
 
   return (
     <>
@@ -19,7 +34,11 @@ const Header = () => {
         <Link to="/">
           <img src={homeIconImg} className="swapi__home-icon" alt="home" />
         </Link>
-        { showBtn && <Link to="/favourite-characters" className="swapi__favourites-btn">Favourite Characters</Link> }
+        {showBtn && (
+          <Link to="/favourite-characters" className="swapi__favourites-btn">
+            Favourite Characters
+          </Link>
+        )}
         <div className="swapi__search-container">
           <input
             type="text"
@@ -40,6 +59,7 @@ const Header = () => {
           </button>
         </div>
       </header>
+      <h1 className="swapi__page-header">{pageName}</h1>
     </>
   );
 };

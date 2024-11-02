@@ -67,7 +67,6 @@ const CharacterListPage = () => {
 
   return (
     <>
-      <h1 className="swapi__page-header">Star Wars Character List</h1>
       <div className="swapi__character-list-container">
         {people && people.length !== 0 ? (
           <CharacterList people={people} />
