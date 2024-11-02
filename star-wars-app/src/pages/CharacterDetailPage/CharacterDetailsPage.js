@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
+import { useParams, Link } from 'react-router-dom';
+import homeIcon from '../../assets/images/home-icon.png';
 
 
 const CharacterDetailsPage = () => {
 
     return (
-        <h1>Character Details Page</h1>
+        <>
+            <Link to="/">
+                <img src={homeIcon} className='swapi__home-icon' alt='home'/>
+            </Link>
+            <h1>Character Details Page</h1>
+        </>
+        
     )
 };
 
