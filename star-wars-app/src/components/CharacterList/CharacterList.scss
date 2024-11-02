@@ -1,0 +1,59 @@
+@use 'sass-mq' as mq;
+
+.swapi__character-list-container{
+    width: 100%;
+    margin: 3rem 0;
+}
+
+.swapi__character-list{
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    &--item{
+        flex-basis: 90%;
+        margin-bottom: 3rem;
+
+        @include mq.mq('tablet') {
+            flex-basis: 45%;
+        }
+
+        @include mq.mq('desktop') {
+            flex-basis: 16rem;
+        }
+    }
+
+    &--link{
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        transition: .3s ease-in-out;
+
+        &:hover, &:active {
+            transform: scale(1.1);
+        }
+    }
+}
+
+.swapi__nav-btn-container{
+    width: 80%;
+    margin: 3rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.swapi__nav-btn{
+    background-color: $yellow;
+    width: 6rem;
+    padding: .75rem;
+    border-radius: 10px;
+    transition: .3s ease-in-out;
+
+    &:hover, &:active{
+        cursor: pointer;
+        transform: scale(1.1);
+    } 
+    
+}

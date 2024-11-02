@@ -1,11 +1,23 @@
+@use 'sass-mq' as mq;
+
 .App {
     width: 100vw;
     height: 100vh;
     background: $offBlack;
+    // background-image: url(../../images/192951-Star_Wars.jpg);
+    // background-position: center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
     font-weight: 300;
     color: $offWhite;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizelegibility;
     position: relative;
     overflow-x: hidden;
+}
+
+.swapi__page-header {
+    color: $offWhite;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 300;
 }
