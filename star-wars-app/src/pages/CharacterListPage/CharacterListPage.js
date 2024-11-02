@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CharacterList from "../../components/CharacterList/CharacterList";
+import DataMessage from "../../components/DataMessage/DataMessage";
 
 const CharacterListPage = () => {
   const [people, setPeople] = useState([]);
@@ -63,8 +64,8 @@ const CharacterListPage = () => {
     if (previousPage) setCurrentPage(previousPage);
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+//   if (loading) return <DataMessage message={"Loading..."} />;
+//   if (error) return <DataMessage message={"Error fetching data."} />;
 
   return (
     <>
@@ -73,7 +74,13 @@ const CharacterListPage = () => {
       </Link>
       <h1 className="swapi__page-header">Star Wars Character List</h1>
       <div className="swapi__character-list-container">
-        {people && people.length !== 0 && <CharacterList people={people} />}
+        {people && people.length !== 0 ? (
+          <CharacterList people={people} />
+        ) : loading ? (
+          <DataMessage message="Loading..." />
+        ) : error ? (
+          <DataMessage message="Error fetching data." />
+        ) : null}
         <div className="swapi__nav-btn-container">
           <button
             className="swapi__nav-btn"
