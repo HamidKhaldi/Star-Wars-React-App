@@ -1,0 +1,85 @@
+@use 'sass-mq' as mq;
+
+.swapi__header{
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    position: relative;
+}
+
+.swapi__home-icon{
+    display: block;
+    width: 45px;
+    padding: 2rem 2rem 0 2rem;
+    justify-self: left;
+}
+
+.swapi__search-container {
+    position: relative;
+    width: 400px;
+    margin: 2rem;
+}
+
+.swapi__search-input {
+    width: 100%;
+    padding: 10px 15px;
+    padding-right: 40px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.swapi__search-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.swapi__search-icon {
+    width: 24px;
+    height: 24px;
+    fill: #888; 
+    transition: fill 0.2s ease; 
+}
+
+.swapi__search-button:hover .swapi__search-icon {
+    fill: #333; 
+}
+
+.swapi__favourites-btn {
+    text-decoration: none;
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    font-weight: 500;
+    color: $offBlack;
+    background-color: $yellow;
+    padding: 10px 20px;
+    border-radius: 0 5px 5px 0;
+    position: fixed;
+    top: 30vh;
+    left: 0;
+    z-index: 99;
+    transition: .3s ease-in-out;
+    
+
+    &:hover, &:active {
+        transform: scale(1.1);
+    }
+
+    @include mq.mq('tablet') {
+        position: relative;
+        left: unset;
+        top: unset;
+        margin-top: 2rem;
+        border-radius: 5px;
+    }
+}

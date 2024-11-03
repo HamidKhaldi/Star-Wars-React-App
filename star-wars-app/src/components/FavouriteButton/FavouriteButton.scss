@@ -1,0 +1,48 @@
+@use 'sass-mq' as mq;
+
+.swapi__add-favourite-cont{
+    cursor: pointer;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    background-color: transparent;
+    color: $offWhite;
+    border: 1px solid $darkGrey;
+    border-radius: 10px;
+    width: 90%;
+    margin: 10px auto 3rem;
+    transition: .3s ease-in-out;
+
+    &:hover, &:active {
+        background-color: $yellow;
+        color: $offBlack;
+    }
+
+  }
+
+  .favourite-character {
+        background-color: $yellow;
+        color: $offBlack;
+  }
+  
+  .swapi__add-favourite-para{
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  
+  .swapi__add-favourite-icon {
+    display: block;
+    width: 20px;
+    margin-top: 5px;
+    margin-right: 5px;
+  }
+
+    
+  .swapi__character-details-favourite-btn {
+    width: 85%;
+    margin-bottom: 5rem;
+
+    @include mq.mq('desktop'){
+      width: 50%;
+    }
+  }

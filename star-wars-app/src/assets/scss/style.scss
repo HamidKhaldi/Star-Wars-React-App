@@ -1,0 +1,12 @@
+//Utilities
+@import "../scss/_tools/variables";
+@import "../scss/_base/base";
+
+//Components
+@import "../../components/DataMessage/DataMessage.scss";
+@import "../../components/Header/Header.scss";
+@import "../../components/CharacterList/CharacterList.scss";
+@import "../../components/CharacterCard/CharacterCard.scss";
+@import "../../components/FavouriteButton/FavouriteButton.scss";
+@import "../../layout/BackArrow/BackArrow.scss";
+@import "../../layout/EditButton/EditButton.scss";

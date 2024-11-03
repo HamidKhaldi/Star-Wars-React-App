@@ -1,0 +1,37 @@
+// Name your breakpoints in a way that creates a ubiquitous language
+// across team members. It will improve communication between
+// stakeholders, designers, developers, and testers.
+$breakpoints: (
+  mobile: 320px,
+  tablet: 740px,
+  desktop: 980px,
+  wide: 1300px,
+  // Tweakpoints
+  desktopAd: 810px,
+  mobileLandscape: 480px,
+);
+
+// If you want to display the currently active breakpoint in the top
+// right corner of your site during development, add the breakpoints
+// to this list, ordered by width. For examples: (mobile, tablet, desktop).
+$show-breakpoints: (mobile, mobileLandscape, tablet, desktop, wide);
+
+// Now import sass-mq with @use
+@use 'sass-mq' with (
+  $breakpoints: $breakpoints,
+  $show-breakpoints: $show-breakpoints
+);
+
+// Styles for displaying the active breakpoint
+.active-breakpoint {
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px;
+    z-index: 9999; // Ensure it's on top of other content
+  
+    @include mq.show-breakpoint; // This will automatically show the active breakpoint
+  }
+  
