@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { DataContext } from "../../store/data-context";
+import heartIconOutline from "../../assets/images/white-heart-outline-icon.png";
 import heartIcon from "../../assets/images/heart-icon.png";
 
 const FavouriteButton = ({ character }) => {
@@ -38,17 +39,13 @@ const FavouriteButton = ({ character }) => {
         }}
       >
         <p className="swapi__add-favourite-para">
-          {!favourite
-            ? "Add to favourites"
-            : "Remove from favourites"}
+          {!favourite ? "Add to favourites" : "Remove from favourites"}
         </p>
-        {favourite && (
-          <img
-            src={heartIcon}
-            className="swapi__add-favourite-icon"
-            alt="heart"
-          />
-        )}
+        <img
+          src={favourite ? heartIcon : heartIconOutline}
+          className="swapi__add-favourite-icon"
+          alt="heart"
+        />
       </button>
     </>
   );
