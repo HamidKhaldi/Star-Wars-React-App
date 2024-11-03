@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import FavouriteButton from "../FavouriteButton/FavouriteButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
-import heartIcon from "../../assets/images/heart-icon.png";
 
 const CharacterDetailsCard = (character) => {
   const [characterDetails, setCharacterDetails] = useState(null);
@@ -27,6 +26,17 @@ const CharacterDetailsCard = (character) => {
       return ship.name || "Unknown";
     } catch (error) {
       console.error("error fetching ship data ", error);
+    }
+  };
+
+  const getPlanet = async (url) => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error("Error retrieving planet!");
+      const planet = await response.json();
+      return planet.name || "Unnknown";
+    } catch (error) {
+      console.error("error fetching homeworld data ", error);
     }
   };
 
@@ -68,6 +78,14 @@ const CharacterDetailsCard = (character) => {
               starship_names: starshipNames,
             }));
           }
+
+          if (characterDetails.homeworld) {
+            const planetName = await getPlanet(characterDetails.homeworld);
+            setCharacterDetails((prevDetails) => ({
+              ...prevDetails,
+              planet: planetName,
+            }));
+          }
         }
       } catch (err) {
         setError("Failed to load data");
@@ -81,7 +99,7 @@ const CharacterDetailsCard = (character) => {
   }, [character]);
 
   useEffect(() => {
-    //console.log("characterDetails after", characterDetails);
+    console.log("characterDetails after", characterDetails);
   }, [characterDetails]);
 
   return (
@@ -106,6 +124,9 @@ const CharacterDetailsCard = (character) => {
             <li className="swapi__character-details-details-list--item">
               Gender: {characterDetails.gender}
             </li>
+            <li className="swapi__character-details-details-list--item">
+              Home Planet: {characterDetails.planet}
+            </li>
             {characterDetails.film_names && (
               <li className="swapi__character-details-details-list--item">
                 Films:
@@ -121,11 +142,10 @@ const CharacterDetailsCard = (character) => {
                 </ul>
               </li>
             )}
-            
-              <li className="swapi__character-details-details-list--item">
-                Starships:
-                
-                <ul className="swap__character-films--list">
+
+            <li className="swapi__character-details-details-list--item">
+              Starships:
+              <ul className="swap__character-films--list">
                 {characterDetails.starship_names ? (
                   characterDetails.starship_names.map((item, index) => (
                     <li
@@ -135,12 +155,13 @@ const CharacterDetailsCard = (character) => {
                       {item},
                     </li>
                   ))
-                  ) : (
-              <li className="swap__character-films--list--item">n/a</li>
-            )}
-                </ul>
+                ) : (
+                  <li className="swap__character-films--list--item">n/a</li>
+                )}
+              </ul>
             </li>
           </ul>
+          <FavouriteButton character={characterDetails} />
         </div>
       )}
     </>

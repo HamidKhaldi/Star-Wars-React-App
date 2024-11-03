@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
-import heartIcon from "../../assets/images/heart-icon.png";
 
-const CharacterCard = ({name, gender, planet}) => {
+const CharacterCard = ({ name, gender, planet, height }) => {
+
+  const [showHeight, setShowHeight] = useState(false);
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    if(pathname === '/favourite-characters'){ setShowHeight(true) };
+  }, [location]);
+
+  
+
   return (
     <>
       <div className="swapi__character-card">
@@ -13,20 +23,17 @@ const CharacterCard = ({name, gender, planet}) => {
           alt="placeholder"
         />
         <ul className="swapi__character-details-list">
-          <li className="swapi__character-details-list--item">
-            Name: {name}
-          </li>
+          <li className="swapi__character-details-list--item">Name: {name}</li>
           <li className="swapi__character-details-list--item">
             Gender: {gender}
           </li>
+          { showHeight && <li className="swapi__character-details-list--item">
+            Height: {height}
+          </li> }
           <li className="swapi__character-details-list--item">
-              Home Planet: {gender}
+            Home Planet: {planet}
           </li>
         </ul>
-        <button className="swapi__add-favourite-cont">
-           <p className="swapi__add-favourite-para">Add to your favourite characters</p>
-           <img src={heartIcon} className="swapi__add-favourite-icon" alt="heart" />
-        </button>
       </div>
     </>
   );

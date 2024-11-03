@@ -12,13 +12,15 @@
   display: block;
   width: 100%;
   height: auto;
-  border-radius: 15px;
+  border-radius: 10px 10px 0 0;
 }
 
 .swapi__character-details-list{
+  background-color: $midnightBlack;
   list-style: none;
   padding: 2rem 1rem;
   text-align: left;
+  border-radius: 0 0 10px 10px;
 
   &--item{
     font-size: 14px;
@@ -32,24 +34,3 @@
   }
 }
 
-.swapi__add-favourite-cont{
-  cursor: pointer;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  background-color: $darkGrey;
-  color: $offWhite;
-  border-radius: 0 0 10px 10px;
-}
-
-.swapi__add-favourite-para{
-  font-size: 12px;
-  margin-left: 5px;
-}
-
-.swapi__add-favourite-icon {
-  display: block;
-  width: 20px;
-  margin-top: 5px;
-  margin-right: 5px;
-}
