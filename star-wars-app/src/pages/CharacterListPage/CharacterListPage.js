@@ -39,8 +39,12 @@ const CharacterListPage = () => {
 
         const dataWithPlanets = await Promise.all(
           data.results.map(async (item) => {
-            const itemId = item.url.split('/').filter(Boolean).pop();
-            return { ...item, id: itemId, planet: await getPlanet(item.homeworld) };
+            const itemId = item.url.split("/").filter(Boolean).pop();
+            return {
+              ...item,
+              id: itemId,
+              planet: await getPlanet(item.homeworld),
+            };
           })
         );
 
@@ -56,13 +60,12 @@ const CharacterListPage = () => {
       }
     };
 
-    if(searchTerm) {
-        const searchUrl = `https://swapi.dev/api/people/?search=${searchTerm}`
-        fetchPeople(searchUrl);
+    if (searchTerm) {
+      const searchUrl = `https://swapi.dev/api/people/?search=${searchTerm}`;
+      fetchPeople(searchUrl);
     } else {
-        fetchPeople(currentPage);
+      fetchPeople(currentPage);
     }
-    
   }, [currentPage, searchTerm]);
 
   const handleNext = () => {
@@ -75,32 +78,32 @@ const CharacterListPage = () => {
 
   return (
     <>
+      <div className="swapi__nav-btn-container">
+        <button
+          className="swapi__nav-btn"
+          onClick={handlePrevious}
+          disabled={!previousPage}
+        >
+          Previous
+        </button>
+        <button
+          className="swapi__nav-btn"
+          onClick={handleNext}
+          disabled={!nextPage}
+        >
+          Next
+        </button>
+      </div>
       <div className="swapi__character-list-container">
-        { people && people.length !== 0 ? (
+        {people && people.length !== 0 ? (
           <CharacterList people={people} />
         ) : loading ? (
           <DataMessage message="Loading..." />
         ) : error ? (
           <DataMessage message="Error fetching data." />
         ) : searchTerm && people.length === 0 ? (
-            <DataMessage message="No Character names match the search term" />
-          ) : null }
-        <div className="swapi__nav-btn-container">
-          <button
-            className="swapi__nav-btn"
-            onClick={handlePrevious}
-            disabled={!previousPage}
-          >
-            Previous
-          </button>
-          <button
-            className="swapi__nav-btn"
-            onClick={handleNext}
-            disabled={!nextPage}
-          >
-            Next
-          </button>
-        </div>
+          <DataMessage message="No Character names match the search term" />
+        ) : null}
       </div>
     </>
   );
