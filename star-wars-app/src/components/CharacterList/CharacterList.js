@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import { DataContext } from "../../store/data-context";
 import CharacterCard from "../CharacterCard/CharacterCard";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
@@ -9,7 +8,9 @@ const CharacterList = ({ people }) => {
   const [peopleList, setPeopleList] = useState([]);
 
   useEffect(() => {
-    setPeopleList([...people]);
+    if(people){
+      setPeopleList([...people]);
+    }
   }, [people]);
 
   useEffect(() => {

@@ -9,7 +9,6 @@ import FavouritesPage from "./pages/FavouritesPage/FavouritesPage";
 function App() {
   return (
     <div className="App">
-      <div className="active-breakpoint"></div>
       <DataProvider>
         <Header />
         <Routes>
