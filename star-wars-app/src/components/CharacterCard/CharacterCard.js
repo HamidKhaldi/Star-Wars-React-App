@@ -22,13 +22,13 @@ const CharacterCard = ({ name, gender, planet, height }) => {
   }, [location]);
 
   useEffect(() => {
-    
+
   }, [isEditing]);
 
   return (
     <>
       {showHeight && (
-        <button className="swapi__edit-button" onClick={handleToggleEdit}>
+        <button className="swapi__edit-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"

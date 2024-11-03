@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
 import BackArrow from "../BackArrow/BackArrow";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
 
 const CharacterDetailsCard = (character) => {
+  const { id } = useParams();
   const [characterDetails, setCharacterDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -49,6 +51,13 @@ const CharacterDetailsCard = (character) => {
 
       try {
         if (characterDetails) {
+          if(id){
+            setCharacterDetails((prevDetails) => ({
+              ...prevDetails,
+              id: id,
+            }));
+          }
+
           if (characterDetails.films && characterDetails.films.length > 0) {
             let filmNames = [];
             await Promise.all(
@@ -100,7 +109,7 @@ const CharacterDetailsCard = (character) => {
   }, [character]);
 
   useEffect(() => {
-    console.log("characterDetails after", characterDetails);
+    //console.log("characterDetails after", characterDetails);
   }, [characterDetails]);
 
   return (

@@ -14,7 +14,7 @@ const CharacterList = ({ people }) => {
   }, [people]);
 
   useEffect(() => {
-    // console.log('peopleList ', peopleList);
+    //console.log('peopleList ', peopleList);
   }, [favouriteCharacters, peopleList]);
 
   return (
@@ -24,7 +24,7 @@ const CharacterList = ({ people }) => {
           {peopleList.map((person, index) => (
             <li key={index} className="swapi__character-list--item">
               <Link
-                to={`character/${person.id}`}
+                to={`/character/${person.id}`}
                 className="swapi__character-list--link"
               >
                 <CharacterCard

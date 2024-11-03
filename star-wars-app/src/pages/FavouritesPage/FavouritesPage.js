@@ -8,10 +8,10 @@ import BackArrow from '../../components/BackArrow/BackArrow';
 
 const FavouritesPage = () => {
 
-    const {favouriteCharacters, setFavouriteCharacters } = useContext(DataContext);
+    const { favouriteCharacters } = useContext(DataContext);
 
     useEffect(() => {
-        console.log('favouriteCharacters', favouriteCharacters);
+        //console.log('favouriteCharacters', favouriteCharacters);
     }, [favouriteCharacters]);
 
     return (
