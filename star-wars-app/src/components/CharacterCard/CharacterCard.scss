@@ -37,16 +37,6 @@
   }
 }
 
-.swapi__edit-button{
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  right: -43%;
-  bottom: 8px;
-  background-color: transparent;
-  border-radius: 10px;
-}
-
 .swapi__character-details-card{
     width: 85%;
     margin: 3rem auto 0;
@@ -67,4 +57,10 @@
     @include mq.mq('desktop'){
         width: 50%;
     }
+  }
+
+  .swapi__editable-input{
+    display: inline-block;
+    width: 60px;
+    margin-left: 10px;
   }

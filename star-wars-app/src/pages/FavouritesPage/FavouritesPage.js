@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { DataContext } from '../../store/data-context';
 import CharacterList from '../../components/CharacterList/CharacterList';
 import DataMessage from "../../components/DataMessage/DataMessage";
-import BackArrow from '../../components/BackArrow/BackArrow';
+import BackArrow from '../../layout/BackArrow/BackArrow';
 
 
 

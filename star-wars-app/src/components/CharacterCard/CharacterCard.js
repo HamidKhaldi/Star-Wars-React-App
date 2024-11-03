@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { useLocation } from "react-router-dom";
+import EditButton from "../../layout/EditButton/EditButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
 
 const CharacterCard = ({ character }) => {
@@ -10,10 +11,22 @@ const CharacterCard = ({ character }) => {
   const pathname = location.pathname;
 
   const handleToggleEdit = () => {
+    console.log("clicked ");
     setIsEditing(!isEditing);
   };
 
-  const handleChange = () => {};
+  useEffect(() => {
+    //console.log("isEditing ", isEditing);
+  }, [isEditing]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "height") {
+      dispatch({ type: "editHeight", payload: value });
+    } else if (name === "gender") {
+      dispatch({ type: "editGender", payload: value });
+    }
+  };
 
   useEffect(() => {
     if (pathname === "/favourite-characters") {
@@ -27,25 +40,32 @@ const CharacterCard = ({ character }) => {
     //console.log("character ", character);
   }, [character]);
 
+  const initialState = {
+    height: character.height,
+    gender: character.gender,
+  };
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "editHeight":
+        return { ...state, height: action.payload };
+      case "editGender":
+        return { ...state, gender: action.payload };
+      default:
+        throw new Error("unknown action type");
+    }
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   return (
     <>
-      {editableCard && (
-        <button className="swapi__edit-button">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 512 512"
-            fill="none"
-          >
-            <path
-              d="M373.1 24.97C401.2 -3.14699 446.8 -3.14699 474.9 24.97L487 37.09C515.1 65.21 515.1 110.8 487 138.9L289.8 336.2C281.1 344.8 270.4 351.1 258.6 354.5L158.6 383.1C150.2 385.5 141.2 383.1 135 376.1C128.9 370.8 126.5 361.8 128.9 353.4L157.5 253.4C160.9 241.6 167.2 230.9 175.8 222.2L373.1 24.97ZM440.1 58.91C431.6 49.54 416.4 49.54 407 58.91L377.9 88L424 134.1L453.1 104.1C462.5 95.6 462.5 80.4 453.1 71.03L440.1 58.91ZM203.7 266.6L186.9 325.1L245.4 308.3C249.4 307.2 252.9 305.1 255.8 302.2L390.1 168L344 121.9L209.8 256.2C206.9 259.1 204.8 262.6 203.7 266.6ZM200 64C213.3 64 224 74.75 224 88C224 101.3 213.3 112 200 112H88C65.91 112 48 129.9 48 152V424C48 446.1 65.91 464 88 464H360C382.1 464 400 446.1 400 424V312C400 298.7 410.7 288 424 288C437.3 288 448 298.7 448 312V424C448 472.6 408.6 512 360 512H88C39.4 512 0 472.6 0 424V152C0 103.4 39.4 64 88 64H200Z"
-              fill="#FFE600"
-            ></path>
-          </svg>
-        </button>
-      )}
-      <div className={`"swapi__character-card" ${detailsCard ? 'swapi__character-details-card' : ''}`}>
+      {editableCard && <EditButton onClick={handleToggleEdit} />}
+      <div
+        className={`"swapi__character-card" ${
+          detailsCard ? "swapi__character-details-card" : ""
+        }`}
+      >
         <img
           src={placeholderImg}
           className="swapi__character-card-img"
@@ -55,6 +75,21 @@ const CharacterCard = ({ character }) => {
           <li className="swapi__character-details-list--item">
             Name: {character.name}
           </li>
+          {editableCard && (
+            <li className="swapi__character-details-list--item">
+              Height:
+              {isEditing ? (
+                <input
+                  className="swapi__editable-input"
+                  name="height"
+                  value={state.height}
+                  onChange={handleChange}
+                />
+              ) : (
+                state.height
+              )}
+            </li>
+          )}
           {detailsCard && (
             <li className="swapi__character-details-list--item">
               Hair Colour: {character.hair_color}
@@ -65,9 +100,21 @@ const CharacterCard = ({ character }) => {
               Eye Colour: {character.eye_color}
             </li>
           )}
-          <li className="swapi__character-details-list--item">
-            Gender: {character.gender}
-          </li>
+          {editableCard && (
+            <li className="swapi__character-details-list--item">
+              Gender:
+              {isEditing ? (
+                <input
+                  className="swapi__editable-input"
+                  name="gender"
+                  value={state.gender}
+                  onChange={handleChange}
+                />
+              ) : (
+                state.gender
+              )}
+            </li>
+          )}
           <li className="swapi__character-details-list--item">
             Home Planet: {character.planet}
           </li>

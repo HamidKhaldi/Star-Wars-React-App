@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import BackArrow from "../BackArrow/BackArrow";
+import BackArrow from "../../layout/BackArrow/BackArrow";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
 import CharacterCard from "./CharacterCard";

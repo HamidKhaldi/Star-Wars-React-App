@@ -40,6 +40,7 @@
     
   .swapi__character-details-favourite-btn {
     width: 85%;
+    margin-bottom: 5rem;
 
     @include mq.mq('desktop'){
       width: 50%;

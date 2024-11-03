@@ -23,14 +23,14 @@ const CharacterList = ({ people }) => {
         <ul className="swapi__character-list">
           {peopleList.map((person, index) => (
             <li key={index} className="swapi__character-list--item">
-              <Link
+              {/* <Link
                 to={`/character/${person.id}`}
                 className="swapi__character-list--link"
-              >
+              > */}
                 <CharacterCard
                  character={person}
                 />
-              </Link>
+              {/* </Link> */}
               <FavouriteButton character={person} favourite={person.favourite} />
             </li>
           ))}
