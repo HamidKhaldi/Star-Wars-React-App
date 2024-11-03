@@ -1,6 +1,7 @@
 @use 'sass-mq' as mq;
 
 .swapi__character-card{
+  position: relative;
   width: 100%;
   border: 1px solid $yellow;
   border-radius: 10px;
@@ -34,3 +35,8 @@
   }
 }
 
+.swapi__edit-link{
+  display: inline-block;
+  position: relative;
+  right: -45%;
+}
