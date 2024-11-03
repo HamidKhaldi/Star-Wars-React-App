@@ -8,6 +8,13 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+
+  &:hover {
+    .swapi__character-card-img{
+      transform: scale(1.1);
+      // transform-origin: 50% 50%;
+    }
+  }
 }
 
 .swapi__character-card-img{
@@ -15,6 +22,7 @@
   width: 100%;
   height: auto;
   border-radius: 10px 10px 0 0;
+  transition: .4s ease-in-out;
 }
 
 .swapi__character-details-list{
@@ -71,3 +79,4 @@
     width: 60px;
     margin-left: 10px;
   }
+
