@@ -2,19 +2,10 @@
 @import "../scss/_tools/variables";
 @import "../scss/_base/base";
 
-
-
-// Pages
-@import "../../pages/CharacterListPage/CharacterListPage.scss";
-@import "../../pages/CharacterDetailPage/CharacterDetailsPage.scss";
-@import "../../pages/FavouritesPage/FavouritesPage.scss";
-
-
 //Components
 @import "../../components/DataMessage/DataMessage.scss";
 @import "../../components/Header/Header.scss";
 @import "../../components/CharacterList/CharacterList.scss";
 @import "../../components/CharacterCard/CharacterCard.scss";
-@import "../../components/CharacterCard/CharacterDetailsCard.scss";
 @import "../../components/FavouriteButton/FavouriteButton.scss";
 @import "../../components/BackArrow/BackArrow.scss";

@@ -1,3 +1,5 @@
+@use 'sass-mq' as mq;
+
 .swapi__add-favourite-cont{
     cursor: pointer;
     display: flex;
@@ -7,14 +9,15 @@
     color: $offWhite;
     border: 1px solid $darkGrey;
     border-radius: 10px;
-    width: 100%;
-    margin-top: 10px;
+    width: 90%;
+    margin: 10px auto 3rem;
     transition: .3s ease-in-out;
 
     &:hover, &:active {
         background-color: $yellow;
         color: $offBlack;
     }
+
   }
 
   .favourite-character {
@@ -32,4 +35,13 @@
     width: 20px;
     margin-top: 5px;
     margin-right: 5px;
+  }
+
+    
+  .swapi__character-details-favourite-btn {
+    width: 85%;
+
+    @include mq.mq('desktop'){
+      width: 50%;
+    }
   }

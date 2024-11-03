@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import BackArrow from "../BackArrow/BackArrow";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
+import CharacterCard from "./CharacterCard";
 
 const CharacterDetailsCard = (character) => {
   const { id } = useParams();
@@ -51,7 +52,7 @@ const CharacterDetailsCard = (character) => {
 
       try {
         if (characterDetails) {
-          if(id){
+          if (id) {
             setCharacterDetails((prevDetails) => ({
               ...prevDetails,
               id: id,
@@ -116,64 +117,10 @@ const CharacterDetailsCard = (character) => {
     <>
       <BackArrow />
       {characterDetails && (
-        <div className="swapi__character-details-card">
-          <img
-            src={placeholderImg}
-            className="swapi__character-details-card-img"
-            alt="placeholder"
-          />
-          <ul className="swapi__character-details-details-list">
-            <li className="swapi__character-details-details-list--item">
-              Name: {characterDetails.name}
-            </li>
-            <li className="swapi__character-details-details-list--item">
-              Hair Colour: {characterDetails.hair_color}
-            </li>
-            <li className="swapi__character-details-details-list--item">
-              Eye Colour: {characterDetails.eye_color}
-            </li>
-            <li className="swapi__character-details-details-list--item">
-              Gender: {characterDetails.gender}
-            </li>
-            <li className="swapi__character-details-details-list--item">
-              Home Planet: {characterDetails.planet}
-            </li>
-            {characterDetails.film_names && (
-              <li className="swapi__character-details-details-list--item">
-                Films:
-                <ul className="swap__character-films--list">
-                  {characterDetails.film_names.map((item, index) => (
-                    <li
-                      key={index}
-                      className="swap__character-films--list--item"
-                    >
-                      {item},
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            )}
-
-            <li className="swapi__character-details-details-list--item">
-              Starships:
-              <ul className="swap__character-films--list">
-                {characterDetails.starship_names ? (
-                  characterDetails.starship_names.map((item, index) => (
-                    <li
-                      key={index}
-                      className="swap__character-films--list--item"
-                    >
-                      {item},
-                    </li>
-                  ))
-                ) : (
-                  <li className="swap__character-films--list--item">n/a</li>
-                )}
-              </ul>
-            </li>
-          </ul>
+        <>
+          <CharacterCard className="swapi__character-details-card" character={characterDetails} />
           <FavouriteButton character={characterDetails} />
-        </div>
+        </>
       )}
     </>
   );

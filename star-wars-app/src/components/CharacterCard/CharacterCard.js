@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect, useReducer } from "react";
+import { useLocation } from "react-router-dom";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
-import editIcon from "../../assets/images/edit-icon.jpg";
 
-const CharacterCard = ({ name, gender, planet, height }) => {
-  const [showHeight, setShowHeight] = useState(false);
+const CharacterCard = ({ character }) => {
+  const [detailsCard, setDetailsCard] = useState(false);
+  const [editableCard, setEditableCard] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const location = useLocation();
   const pathname = location.pathname;
@@ -17,17 +17,19 @@ const CharacterCard = ({ name, gender, planet, height }) => {
 
   useEffect(() => {
     if (pathname === "/favourite-characters") {
-      setShowHeight(true);
+      setEditableCard(true);
+    } else if (pathname.includes("/character")) {
+      setDetailsCard(true);
     }
   }, [location]);
 
   useEffect(() => {
-
-  }, [isEditing]);
+    //console.log("character ", character);
+  }, [character]);
 
   return (
     <>
-      {showHeight && (
+      {editableCard && (
         <button className="swapi__edit-button">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,38 +45,64 @@ const CharacterCard = ({ name, gender, planet, height }) => {
           </svg>
         </button>
       )}
-
-      <div className="swapi__character-card">
+      <div className={`"swapi__character-card" ${detailsCard ? 'swapi__character-details-card' : ''}`}>
         <img
           src={placeholderImg}
           className="swapi__character-card-img"
           alt="placeholder"
         />
         <ul className="swapi__character-details-list">
-          <li className="swapi__character-details-list--item">Name: {name}</li>
           <li className="swapi__character-details-list--item">
-            Gender: {gender}
+            Name: {character.name}
           </li>
-          {showHeight &&
-            (isEditing ? (
-              <div>
-                <label htmlFor="heightInput">Height: </label>
-                <input
-                  type="text"
-                  name="heightInput"
-                  value={height}
-                  onChange={handleChange}
-                  onBlur={handleToggleEdit} // Exit edit mode on blur
-                />
-              </div>
-            ) : (
-              <li className="swapi__character-details-list--item">
-                Height: {height}
-              </li>
-            ))}
+          {detailsCard && (
+            <li className="swapi__character-details-list--item">
+              Hair Colour: {character.hair_color}
+            </li>
+          )}
+          {detailsCard && (
+            <li className="swapi__character-details-list--item">
+              Eye Colour: {character.eye_color}
+            </li>
+          )}
           <li className="swapi__character-details-list--item">
-            Home Planet: {planet}
+            Gender: {character.gender}
           </li>
+          <li className="swapi__character-details-list--item">
+            Home Planet: {character.planet}
+          </li>
+          {detailsCard && character.film_names && (
+            <li className="swapi__character-details-list--item">
+              Films:
+              <ul className="swap__character-films--list">
+                {character.film_names.map((item, index) => (
+                  <li key={index} className="swap__character-films--list--item">
+                    {item},
+                  </li>
+                ))}
+              </ul>
+            </li>
+          )}
+
+          {detailsCard && (
+            <li className="swapi__character-details-list--item">
+              Starships:
+              <ul className="swap__character-films--list">
+                {character.starship_names ? (
+                  character.starship_names.map((item, index) => (
+                    <li
+                      key={index}
+                      className="swap__character-films--list--item"
+                    >
+                      {item},
+                    </li>
+                  ))
+                ) : (
+                  <li className="swap__character-films--list--item">n/a</li>
+                )}
+              </ul>
+            </li>
+          )}
         </ul>
       </div>
     </>

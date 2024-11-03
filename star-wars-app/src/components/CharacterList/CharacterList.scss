@@ -13,8 +13,8 @@
     justify-content: space-around;
 
     &--item{
-        flex-basis: 90%;
-        margin-bottom: 3rem;
+        flex-basis: 100%;
+        margin-bottom: 1rem;
 
         @include mq.mq('tablet') {
             flex-basis: 45%;
@@ -58,3 +58,4 @@
     
 }
 
+   

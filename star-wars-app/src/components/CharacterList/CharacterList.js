@@ -28,11 +28,7 @@ const CharacterList = ({ people }) => {
                 className="swapi__character-list--link"
               >
                 <CharacterCard
-                  name={person.name}
-                  gender={person.gender}
-                  planet={person.planet}
-                  id={person.id}
-                  height={person.height}
+                 character={person}
                 />
               </Link>
               <FavouriteButton character={person} favourite={person.favourite} />
