@@ -10,18 +10,11 @@ const CharacterList = ({ people }) => {
   const [peopleList, setPeopleList] = useState([]);
 
   useEffect(() =>{
-    console.log('people ', people);
     setPeopleList([...people]);
-    // people.forEach(person => {
-    //   if(favouriteCharacters.includes(person)){
-    //       person.favourite = true;
-    //   }
-    // });
   }, [people]);
 
   useEffect(() => {
-    console.log("Favourite characters:", favouriteCharacters);
-    console.log('peopleList ', peopleList);
+    // console.log('peopleList ', peopleList);
   }, [favouriteCharacters, peopleList]);
 
   return (

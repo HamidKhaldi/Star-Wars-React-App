@@ -35,8 +35,12 @@
   }
 }
 
-.swapi__edit-link{
+.swapi__edit-button{
+  cursor: pointer;
   display: inline-block;
   position: relative;
-  right: -45%;
+  right: -43%;
+  bottom: 8px;
+  background-color: transparent;
+  border-radius: 10px;
 }

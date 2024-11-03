@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import BackArrow from "../BackArrow/BackArrow";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
 
@@ -104,6 +105,7 @@ const CharacterDetailsCard = (character) => {
 
   return (
     <>
+      <BackArrow />
       {characterDetails && (
         <div className="swapi__character-details-card">
           <img

@@ -53,7 +53,7 @@ const Header = () => {
         </Link>
         {showBtn && (
           <Link to="/favourite-characters" className="swapi__favourites-btn">
-            Favourite Characters
+            Favourites
           </Link>
         )}
         <div className="swapi__search-container">

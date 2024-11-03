@@ -5,12 +5,15 @@ import editIcon from "../../assets/images/edit-icon.jpg";
 
 const CharacterCard = ({ name, gender, planet, height }) => {
   const [showHeight, setShowHeight] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const location = useLocation();
   const pathname = location.pathname;
 
-  const editHeight = () => {
-
+  const handleToggleEdit = () => {
+    setIsEditing(!isEditing);
   };
+
+  const handleChange = () => {};
 
   useEffect(() => {
     if (pathname === "/favourite-characters") {
@@ -18,10 +21,14 @@ const CharacterCard = ({ name, gender, planet, height }) => {
     }
   }, [location]);
 
+  useEffect(() => {
+    
+  }, [isEditing]);
+
   return (
     <>
-      { showHeight && (
-        <Link className="swapi__edit-link" onClick={editHeight}>
+      {showHeight && (
+        <button className="swapi__edit-button" onClick={handleToggleEdit}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"
@@ -34,7 +41,7 @@ const CharacterCard = ({ name, gender, planet, height }) => {
               fill="#FFE600"
             ></path>
           </svg>
-        </Link>
+        </button>
       )}
 
       <div className="swapi__character-card">
@@ -48,11 +55,23 @@ const CharacterCard = ({ name, gender, planet, height }) => {
           <li className="swapi__character-details-list--item">
             Gender: {gender}
           </li>
-          { showHeight && (
-            <li className="swapi__character-details-list--item">
-              Height: {height}
-            </li>
-          )}
+          {showHeight &&
+            (isEditing ? (
+              <div>
+                <label htmlFor="heightInput">Height: </label>
+                <input
+                  type="text"
+                  name="heightInput"
+                  value={height}
+                  onChange={handleChange}
+                  onBlur={handleToggleEdit} // Exit edit mode on blur
+                />
+              </div>
+            ) : (
+              <li className="swapi__character-details-list--item">
+                Height: {height}
+              </li>
+            ))}
           <li className="swapi__character-details-list--item">
             Home Planet: {planet}
           </li>

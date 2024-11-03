@@ -1,0 +1,25 @@
+.swapi__back-cont{
+    padding: 2rem;
+    width:fit-content;
+}
+
+.swapi__back-link{
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: $offBlack;
+    font-size: 18px;
+}
+
+.swapi__back-img{
+    display: inline-block;
+    width: 25px;
+    margin: 0 8px -8px 8px;
+}
+
+.swapi__back-span{
+    display: inline-block;
+    font-size: 16px;
+    color: $offWhite;
+    margin-left: 5px;
+}

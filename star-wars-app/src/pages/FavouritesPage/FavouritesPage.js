@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { DataContext } from '../../store/data-context';
 import CharacterList from '../../components/CharacterList/CharacterList';
 import DataMessage from "../../components/DataMessage/DataMessage";
+import BackArrow from '../../components/BackArrow/BackArrow';
 
 
 
@@ -15,6 +16,7 @@ const FavouritesPage = () => {
 
     return (
         <>
+            <BackArrow />
             { favouriteCharacters.length > 0 ? <CharacterList people={favouriteCharacters} /> : <DataMessage message={' No favourite characters at the moment! You need to pick some!'} /> }
         </>
         
