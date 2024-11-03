@@ -1,7 +1,7 @@
 # Star-Wars-React-App
 The goal of this project is to create a maintainable and scalable single-page application using React. This application fetches data from the SWAPI API and includes a responsive interface with pagination, search functionality, and character details, alongside a favorites list. The project is designed as a potential foundation for a larger app.
 
-Note: The project is built in JavaScript instead of TypeScript, as I am still learning TypeScript. Testing has been introduced as a new concept for me, so the test suite will be introduced and exapnded as I gain experience on the subject.
+Note: The project is built in JavaScript instead of TypeScript, as I am still learning TypeScript. Whislt I have been exposed to Testing, I have not had the opportunity to write Test in my current andprevious positions, so the test suite will be introduced and exapnded as I gain experience on the subject.
 
 Features
 Character List View
@@ -61,7 +61,7 @@ The app will be accessible at http://localhost:3000.
 
 
 Testing
-Whislt I am familiar with the frameworks used for Testing and their best uses (e.g. Cypress for E2E, Jest for component or intergation testing), I consider myself still a novice in this field.
+Whislt I am familiar with the frameworks used for Testing and their best uses (e.g. Cypress for E2E, Jest for component or intergation testing), I consider myself still a novice in this field. I have set up a test file called 'CharacterList.test.js' to test the CharacterList component. 
 
 
 Additional Considerations:
