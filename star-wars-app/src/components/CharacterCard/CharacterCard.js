@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useReducer } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import EditButton from "../../layout/EditButton/EditButton";
 import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
+import SaveButton from "../../layout/SaveButton";
 
 const CharacterCard = ({ character }) => {
   const [detailsCard, setDetailsCard] = useState(false);
@@ -11,7 +12,6 @@ const CharacterCard = ({ character }) => {
   const pathname = location.pathname;
 
   const handleToggleEdit = () => {
-    console.log("clicked ");
     setIsEditing(!isEditing);
   };
 
@@ -60,98 +60,209 @@ const CharacterCard = ({ character }) => {
 
   return (
     <>
-      {editableCard && <EditButton onClick={handleToggleEdit} />}
-      <div
-        className={`"swapi__character-card" ${
-          detailsCard ? "swapi__character-details-card" : ""
-        }`}
-      >
-        <img
-          src={placeholderImg}
-          className="swapi__character-card-img"
-          alt="placeholder"
-        />
-        <ul className="swapi__character-details-list">
-          <li className="swapi__character-details-list--item">
-            Name: {character.name}
-          </li>
-          {editableCard && (
-            <li className="swapi__character-details-list--item">
-              Height:
-              {isEditing ? (
-                <input
-                  className="swapi__editable-input"
-                  name="height"
-                  value={state.height}
-                  onChange={handleChange}
-                />
-              ) : (
-                state.height
+      {editableCard && !isEditing && <EditButton onClick={handleToggleEdit} />}
+      {editableCard && isEditing && <SaveButton onClick={handleToggleEdit} />}
+      {!isEditing ? (
+        <Link
+          to={`/character/${character.id}`}
+          className="swapi__character-list--link"
+        >
+          <div
+            className={`"swapi__character-card" ${
+              detailsCard ? "swapi__character-details-card" : ""
+            }`}
+          >
+            <img
+              src={placeholderImg}
+              className="swapi__character-card-img"
+              alt="placeholder"
+            />
+            <ul className="swapi__character-details-list">
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">Name:</span>{" "}
+                {character.name}
+              </li>
+              {editableCard && (
+                <li className="swapi__character-details-list--item">
+                  <span className="swapi__chaarcter-details-span">Height:</span>
+                  {state.height}
+                </li>
               )}
-            </li>
-          )}
-          {detailsCard && (
-            <li className="swapi__character-details-list--item">
-              Hair Colour: {character.hair_color}
-            </li>
-          )}
-          {detailsCard && (
-            <li className="swapi__character-details-list--item">
-              Eye Colour: {character.eye_color}
-            </li>
-          )}
-          {editableCard && (
-            <li className="swapi__character-details-list--item">
-              Gender:
-              {isEditing ? (
-                <input
-                  className="swapi__editable-input"
-                  name="gender"
-                  value={state.gender}
-                  onChange={handleChange}
-                />
-              ) : (
-                state.gender
+              {detailsCard && (
+                <li className="swapi__character-details-list--item">
+                  <span className="swapi__chaarcter-details-span">
+                    Hair Colour:
+                  </span>{" "}
+                  {character.hair_color}
+                </li>
               )}
-            </li>
-          )}
-          <li className="swapi__character-details-list--item">
-            Home Planet: {character.planet}
-          </li>
-          {detailsCard && character.film_names && (
-            <li className="swapi__character-details-list--item">
-              Films:
-              <ul className="swap__character-films--list">
-                {character.film_names.map((item, index) => (
-                  <li key={index} className="swap__character-films--list--item">
-                    {item},
-                  </li>
-                ))}
-              </ul>
-            </li>
-          )}
+              {detailsCard && (
+                <li className="swapi__character-details-list--item">
+                  <span className="swapi__chaarcter-details-span">
+                    Eye Colour:
+                  </span>{" "}
+                  {character.eye_color}
+                </li>
+              )}
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">Gender:</span>
+                {state.gender}
+              </li>
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">
+                  Home Planet:
+                </span>{" "}
+                {character.planet}
+              </li>
+              {detailsCard && character.film_names && (
+                <li className="swapi__character-details-list--item">
+                  <span className="swapi__chaarcter-details-span">Films:</span>
+                  <ul className="swap__character-films--list">
+                    {character.film_names.map((item, index) => (
+                      <li
+                        key={index}
+                        className="swap__character-films--list--item"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              )}
 
-          {detailsCard && (
+              {detailsCard && (
+                <li className="swapi__character-details-list--item">
+                  <span className="swapi__chaarcter-details-span">
+                    Starships:
+                  </span>
+                  <ul className="swap__character-films--list">
+                    {character.starship_names ? (
+                      character.starship_names.map((item, index) => (
+                        <li
+                          key={index}
+                          className="swap__character-films--list--item"
+                        >
+                          {item}
+                        </li>
+                      ))
+                    ) : (
+                      <li className="swap__character-films--list--item">n/a</li>
+                    )}
+                  </ul>
+                </li>
+              )}
+            </ul>
+          </div>
+        </Link>
+      ) : (
+        <div
+          className={`"swapi__character-card" ${
+            detailsCard ? "swapi__character-details-card" : ""
+          }`}
+        >
+          <img
+            src={placeholderImg}
+            className="swapi__character-card-img"
+            alt="placeholder"
+          />
+          <ul className="swapi__character-details-list">
             <li className="swapi__character-details-list--item">
-              Starships:
-              <ul className="swap__character-films--list">
-                {character.starship_names ? (
-                  character.starship_names.map((item, index) => (
+              <span className="swapi__chaarcter-details-span">Name:</span>{" "}
+              {character.name}
+            </li>
+            {editableCard && (
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">Height:</span>
+                {isEditing ? (
+                  <input
+                    className="swapi__editable-input"
+                    type="number"
+                    name="height"
+                    value={state.height}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  state.height
+                )}
+              </li>
+            )}
+            {detailsCard && (
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">
+                  Hair Colour:
+                </span>{" "}
+                {character.hair_color}
+              </li>
+            )}
+            {detailsCard && (
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">
+                  Eye Colour:
+                </span>{" "}
+                {character.eye_color}
+              </li>
+            )}
+            {editableCard && (
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">Gender:</span>
+                {isEditing ? (
+                  <input
+                    className="swapi__editable-input"
+                    name="gender"
+                    value={state.gender}
+                    onChange={handleChange}
+                  />
+                ) : (
+                  state.gender
+                )}
+              </li>
+            )}
+            <li className="swapi__character-details-list--item">
+              <span className="swapi__chaarcter-details-span">
+                Home Planet:
+              </span>{" "}
+              {character.planet}
+            </li>
+            {detailsCard && character.film_names && (
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">Films:</span>
+                <ul className="swap__character-films--list">
+                  {character.film_names.map((item, index) => (
                     <li
                       key={index}
                       className="swap__character-films--list--item"
                     >
-                      {item},
+                      {item}
                     </li>
-                  ))
-                ) : (
-                  <li className="swap__character-films--list--item">n/a</li>
-                )}
-              </ul>
-            </li>
-          )}
-        </ul>
-      </div>
+                  ))}
+                </ul>
+              </li>
+            )}
+
+            {detailsCard && (
+              <li className="swapi__character-details-list--item">
+                <span className="swapi__chaarcter-details-span">
+                  Starships:
+                </span>
+                <ul className="swap__character-films--list">
+                  {character.starship_names ? (
+                    character.starship_names.map((item, index) => (
+                      <li
+                        key={index}
+                        className="swap__character-films--list--item"
+                      >
+                        {item}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="swap__character-films--list--item">n/a</li>
+                  )}
+                </ul>
+              </li>
+            )}
+          </ul>
+        </div>
+      )}
     </>
   );
 };

@@ -33,8 +33,15 @@
     &:first-child{
       font-size: 18px;
       font-weight: 400;
+      color: $yellow;
     }
   }
+}
+
+.swapi__chaarcter-details-span{
+  margin-right: 10px;
+  display: inline-block;
+  font-weight: 400;
 }
 
 .swapi__character-details-card{

@@ -5,11 +5,10 @@ import CharacterCard from "../CharacterCard/CharacterCard";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
 
 const CharacterList = ({ people }) => {
-
   const { favouriteCharacters } = useContext(DataContext);
   const [peopleList, setPeopleList] = useState([]);
 
-  useEffect(() =>{
+  useEffect(() => {
     setPeopleList([...people]);
   }, [people]);
 
@@ -23,15 +22,11 @@ const CharacterList = ({ people }) => {
         <ul className="swapi__character-list">
           {peopleList.map((person, index) => (
             <li key={index} className="swapi__character-list--item">
-              {/* <Link
-                to={`/character/${person.id}`}
-                className="swapi__character-list--link"
-              > */}
-                <CharacterCard
-                 character={person}
-                />
-              {/* </Link> */}
-              <FavouriteButton character={person} favourite={person.favourite} />
+              <CharacterCard character={person} />
+              <FavouriteButton
+                character={person}
+                favourite={person.favourite}
+              />
             </li>
           ))}
         </ul>
