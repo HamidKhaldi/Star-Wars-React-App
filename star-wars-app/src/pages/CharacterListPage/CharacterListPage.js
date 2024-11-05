@@ -4,6 +4,10 @@ import CharacterList from "../../components/CharacterList/CharacterList";
 import DataMessage from "../../components/DataMessage/DataMessage";
 import { DataContext } from "../../store/data-context";
 
+const MemoizedCharacterList = React.memo(CharacterList);
+const MemoizedDataMessage = React.memo(DataMessage);
+
+
 const CharacterListPage = () => {
   const [people, setPeople] = useState([]);
   const [currentPage, setCurrentPage] = useState(
@@ -13,7 +17,7 @@ const CharacterListPage = () => {
   const [previousPage, setPreviousPage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { searchTerm, setSearchTerm } = useContext(DataContext);
+  const { searchTerm } = useContext(DataContext);
 
   const getPlanet = async (url) => {
     try {
@@ -33,6 +37,7 @@ const CharacterListPage = () => {
 
       try {
         const response = await fetch(pageUrl);
+        console.log('pageUrl ', pageUrl);
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
@@ -51,7 +56,9 @@ const CharacterListPage = () => {
         setPeople(dataWithPlanets);
         setNextPage(data.next);
         setPreviousPage(data.previous);
-        // console.log("people ", people);
+        console.log("people ", people);
+        console.log("nextPage ", nextPage);
+        console.log("previousPage ", previousPage);
       } catch (err) {
         setError("Failed to load data");
         console.error("Error:", err);
@@ -64,7 +71,7 @@ const CharacterListPage = () => {
       const searchUrl = `https://swapi.dev/api/people/?search=${searchTerm}`;
       fetchPeople(searchUrl);
     } else {
-      fetchPeople(currentPage);
+      fetchPeople( );
     }
   }, [currentPage, searchTerm]);
 
@@ -96,13 +103,13 @@ const CharacterListPage = () => {
       </div>
       <div className="swapi__character-list-container">
         {people && people.length !== 0 ? (
-          <CharacterList people={people} />
+          <MemoizedCharacterList people={people} />
         ) : loading ? (
-          <DataMessage message="Loading..." />
+          <MemoizedDataMessage message="Loading..." />
         ) : error ? (
-          <DataMessage message="Error fetching data." />
+          <MemoizedDataMessage message="Error fetching data." />
         ) : searchTerm && people.length === 0 ? (
-          <DataMessage message="No Character names match the search term" />
+          <MemoizedDataMessage message="No Character names match the search term" />
         ) : null}
       </div>
     </>

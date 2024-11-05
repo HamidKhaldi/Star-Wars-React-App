@@ -8,4 +8,4 @@ const DataMessage = ({ message }) => {
     );
 };
 
-export default DataMessage;
+export default React.memo(DataMessage);

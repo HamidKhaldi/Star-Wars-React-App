@@ -26,7 +26,6 @@ const CharacterList = ({ people }) => {
               <CharacterCard character={person} />
               <FavouriteButton
                 character={person}
-                favourite={person.favourite}
               />
             </li>
           ))}
@@ -36,4 +35,4 @@ const CharacterList = ({ people }) => {
   );
 };
 
-export default CharacterList;
+export default React.memo(CharacterList);
