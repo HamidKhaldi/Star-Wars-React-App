@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import CharacterList from "../../components/CharacterList/CharacterList";
 import DataMessage from "../../components/DataMessage/DataMessage";
-import { DataContext } from "../../store/data-context";
 import { getPlanet } from "../../helpers/helpers";
 
 const MemoizedCharacterList = React.memo(CharacterList);
@@ -17,7 +17,7 @@ const CharacterListPage = () => {
   const [previousPage, setPreviousPage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { searchTerm } = useContext(DataContext);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
 
  
 

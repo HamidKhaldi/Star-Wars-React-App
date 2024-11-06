@@ -24,9 +24,26 @@ const favouritesSlice = createSlice({
 
 export const { addFavourite, removeFavourite } = favouritesSlice.actions;
 
+
+const searchSlice = createSlice({
+    name: "search",
+    initialState: {
+        searchTerm: "",
+    },
+    reducers: {
+        setSearchTerm: (state, action) => {
+            state.searchTerm = action.payload;
+            console.log('searchTerm ', state.searchTerm);
+        },
+    },
+});
+
+export const { setSearchTerm } = searchSlice.actions;
+
 const  store = configureStore({
     reducer: {
         favourites: favouritesSlice.reducer,
+        search: searchSlice.reducer,
     },
 });
 

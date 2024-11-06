@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-// import { DataContext } from "../../store/data-context";
 import { addFavourite, removeFavourite } from "../../store/store";
 import heartIconOutline from "../../assets/images/white-heart-outline-icon.png";
 import heartIcon from "../../assets/images/heart-icon.png";
@@ -12,8 +11,6 @@ const FavouriteButton = ({ character }) => {
   const favouriteCharacters = useSelector(
     (state) => state.favourites.favouriteCharacters
   );
-  // const { favouriteCharacters, setFavouriteCharacters } =
-  //   useContext(DataContext);
   const [favourite, setFavourite] = useState(
     favouriteCharacters.some((item) => item.id === character.id)
   );

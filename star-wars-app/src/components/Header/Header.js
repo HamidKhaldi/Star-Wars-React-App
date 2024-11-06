@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { DataContext } from "../../store/data-context";
+import { useSelector, useDispatch } from "react-redux";
+import { setSearchTerm } from "../../store/store";
+// import { DataContext } from "../../store/data-context";
 import homeIconImg from "../../assets/images/home-icon.png";
 
 const Header = () => {
   const [showBtn, setShowBtn] = useState(true);
   const [pageName, setPageName] = useState(null);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
   const location = useLocation();
   const navigate = useNavigate();
-  const { searchTerm, setSearchTerm } = useContext(DataContext);
+  const dispatch = useDispatch();
   const searchInput = document.getElementById("searchInput");
 
   useEffect(() => {
@@ -28,9 +31,15 @@ const Header = () => {
     }
   }, [location, pageName]);
 
+  useEffect(() => {
+    if (searchTerm) {
+      searchInput.value = searchTerm;
+    }
+  }, [searchTerm]);
+
   const handleInputChange = (e) => {
     setTimeout(() => {
-      setSearchTerm(e.target.value);
+      dispatch(setSearchTerm(e.target.value));
       if(location.pathname !== "/"){
         navigate('/');
       }
@@ -38,7 +47,7 @@ const Header = () => {
   };
 
   const clearInput = () => {
-    setSearchTerm('');
+    dispatch(setSearchTerm(''));
     searchInput.value = null;
     if(location.pathname !== "/"){
       navigate('/');

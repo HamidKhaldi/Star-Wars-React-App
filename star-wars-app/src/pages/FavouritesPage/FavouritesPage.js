@@ -1,5 +1,4 @@
-import React, { useContext, useEffect } from 'react';
-// import { DataContext } from '../../store/data-context';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import CharacterList from '../../components/CharacterList/CharacterList';
 import DataMessage from "../../components/DataMessage/DataMessage";
