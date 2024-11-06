@@ -16,12 +16,8 @@ const FavouriteButton = ({ character }) => {
       pathname.includes('/character/')
   );
 
-  useEffect(()=>{
-    // console.log('detailsCard', detailsCard);
-  }, [detailsCard]);
-
   const handleFavouriteClick = (character) => {
-    if (!favouriteCharacters.some((item) => item.id === character.id)) {
+    if (!favourite) {
       setFavouriteCharacters((prevDetails) => [...prevDetails, character]);
       setFavourite(true);
     } else {

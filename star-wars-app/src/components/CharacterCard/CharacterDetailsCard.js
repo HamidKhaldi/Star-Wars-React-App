@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import BackArrow from "../../layout/BackArrow/BackArrow";
 import FavouriteButton from "../FavouriteButton/FavouriteButton";
-import placeholderImg from "../../assets/images/starwars-placeholder.jpg";
 import CharacterCard from "./CharacterCard";
+import { getPlanet, fetchFilmNames, fetchStarshipNames } from "../../helpers/helpers";
 
 const CharacterDetailsCard = (character) => {
   const { id } = useParams();
@@ -11,38 +11,9 @@ const CharacterDetailsCard = (character) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getFilmName = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Error retrieving film name!");
-      const film = await response.json();
-      return film.title || "Unknown";
-    } catch (error) {
-      console.error("error fetching film data ", error);
-    }
-  };
 
-  const getStarshipName = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Error retrieving ship name!");
-      const ship = await response.json();
-      return ship.name || "Unknown";
-    } catch (error) {
-      console.error("error fetching ship data ", error);
-    }
-  };
+  console.log('character ', character);
 
-  const getPlanet = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Error retrieving planet!");
-      const planet = await response.json();
-      return planet.name || "Unnknown";
-    } catch (error) {
-      console.error("error fetching homeworld data ", error);
-    }
-  };
 
   useEffect(() => {
     const fetchAssetsNames = async (character) => {
@@ -60,16 +31,10 @@ const CharacterDetailsCard = (character) => {
           }
 
           if (characterDetails.films && characterDetails.films.length > 0) {
-            let filmNames = [];
-            await Promise.all(
-              characterDetails.films.map(async (film) => {
-                const filmName = await getFilmName(film);
-                return filmNames.push(filmName);
-              })
-            );
+            const filmNames = await fetchFilmNames(characterDetails.films); 
             setCharacterDetails((prevDetails) => ({
               ...prevDetails,
-              film_names: filmNames,
+              film_names: filmNames
             }));
           }
 
@@ -77,16 +42,10 @@ const CharacterDetailsCard = (character) => {
             characterDetails.starships &&
             characterDetails.starships.length > 0
           ) {
-            let starshipNames = [];
-            await Promise.all(
-              characterDetails.starships.map(async (starship) => {
-                const starshipName = await getStarshipName(starship);
-                return starshipNames.push(starshipName);
-              })
-            );
+            const starshipNames = await  fetchStarshipNames(characterDetails.starships)
             setCharacterDetails((prevDetails) => ({
               ...prevDetails,
-              starship_names: starshipNames,
+              starship_names: starshipNames
             }));
           }
 
@@ -110,7 +69,7 @@ const CharacterDetailsCard = (character) => {
   }, [character]);
 
   useEffect(() => {
-    //console.log("characterDetails after", characterDetails);
+    console.log("characterDetails after", characterDetails);
   }, [characterDetails]);
 
   return (
@@ -118,7 +77,7 @@ const CharacterDetailsCard = (character) => {
       <BackArrow />
       {characterDetails && (
         <>
-          <CharacterCard className="swapi__character-details-card" character={characterDetails} />
+          <CharacterCard character={characterDetails} />
           <FavouriteButton character={characterDetails} />
         </>
       )}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
 import CharacterList from "../../components/CharacterList/CharacterList";
 import DataMessage from "../../components/DataMessage/DataMessage";
 import { DataContext } from "../../store/data-context";
+import { getPlanet } from "../../helpers/helpers";
 
 const MemoizedCharacterList = React.memo(CharacterList);
 const MemoizedDataMessage = React.memo(DataMessage);
@@ -19,16 +19,7 @@ const CharacterListPage = () => {
   const [error, setError] = useState(null);
   const { searchTerm } = useContext(DataContext);
 
-  const getPlanet = async (url) => {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Error retrieving planet!");
-      const planet = await response.json();
-      return planet.name || "Unnknown";
-    } catch (error) {
-      console.error("error fetching homeworld data ", error);
-    }
-  };
+ 
 
   useEffect(() => {
     const fetchPeople = async (pageUrl) => {
@@ -37,7 +28,6 @@ const CharacterListPage = () => {
 
       try {
         const response = await fetch(pageUrl);
-        console.log('pageUrl ', pageUrl);
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
@@ -56,9 +46,6 @@ const CharacterListPage = () => {
         setPeople(dataWithPlanets);
         setNextPage(data.next);
         setPreviousPage(data.previous);
-        console.log("people ", people);
-        console.log("nextPage ", nextPage);
-        console.log("previousPage ", previousPage);
       } catch (err) {
         setError("Failed to load data");
         console.error("Error:", err);
@@ -71,7 +58,7 @@ const CharacterListPage = () => {
       const searchUrl = `https://swapi.dev/api/people/?search=${searchTerm}`;
       fetchPeople(searchUrl);
     } else {
-      fetchPeople( );
+      fetchPeople(currentPage);
     }
   }, [currentPage, searchTerm]);
 

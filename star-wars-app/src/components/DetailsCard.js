@@ -4,7 +4,7 @@ import placeholderImg from "../assets/images/starwars-placeholder.jpg";
 
 const DetailsCard = ({ detailsCard, editableCard, character, isEditing, state, onChange }) => {
 
-    console.log('isEditing', isEditing);
+    //console.log('isEditing', isEditing);
 
     return (
         <div
@@ -119,4 +119,4 @@ const DetailsCard = ({ detailsCard, editableCard, character, isEditing, state, o
 
 
 
-export default DetailsCard;
+export default React.memo(DetailsCard);
