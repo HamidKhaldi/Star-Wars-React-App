@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { DataContext } from '../../store/data-context';
+// import { DataContext } from '../../store/data-context';
+import { useSelector } from 'react-redux';
 import CharacterList from '../../components/CharacterList/CharacterList';
 import DataMessage from "../../components/DataMessage/DataMessage";
 import BackArrow from '../../layout/BackArrow/BackArrow';
@@ -8,16 +9,16 @@ import BackArrow from '../../layout/BackArrow/BackArrow';
 
 const FavouritesPage = () => {
 
-    const { favouriteCharacters } = useContext(DataContext);
+    const favourites = useSelector(state => state.favourites.favouriteCharacters);
 
     useEffect(() => {
         //console.log('favouriteCharacters', favouriteCharacters);
-    }, [favouriteCharacters]);
+    }, [favourites]);
 
     return (
         <>
             <BackArrow />
-            { favouriteCharacters.length > 0 ? <CharacterList people={favouriteCharacters} /> : <DataMessage message={' No favourite characters at the moment! You need to pick some!'} /> }
+            { favourites.length > 0 ? <CharacterList people={favourites} /> : <DataMessage message={' No favourite characters at the moment! You need to pick some!'} /> }
         </>
         
     )

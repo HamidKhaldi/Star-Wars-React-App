@@ -1,13 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { DataContext } from "../../store/data-context";
+// import { DataContext } from "../../store/data-context";
+import { addFavourite, removeFavourite } from "../../store/store";
 import heartIconOutline from "../../assets/images/white-heart-outline-icon.png";
 import heartIcon from "../../assets/images/heart-icon.png";
 
 const FavouriteButton = ({ character }) => {
   const pathname = useLocation().pathname;
-  const { favouriteCharacters, setFavouriteCharacters } =
-    useContext(DataContext);
+  const dispatch = useDispatch();
+  const favouriteCharacters = useSelector(
+    (state) => state.favourites.favouriteCharacters
+  );
+  // const { favouriteCharacters, setFavouriteCharacters } =
+  //   useContext(DataContext);
   const [favourite, setFavourite] = useState(
     favouriteCharacters.some((item) => item.id === character.id)
   );
@@ -18,12 +24,10 @@ const FavouriteButton = ({ character }) => {
 
   const handleFavouriteClick = (character) => {
     if (!favourite) {
-      setFavouriteCharacters((prevDetails) => [...prevDetails, character]);
+      dispatch(addFavourite(character));
       setFavourite(true);
     } else {
-      setFavouriteCharacters((prevDetails) =>
-        prevDetails.filter((char) => char.id !== character.id)
-      );
+      dispatch(removeFavourite(character.id));
       setFavourite(false);
     }
   };
