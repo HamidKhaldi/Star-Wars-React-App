@@ -1,13 +1,10 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-    favouriteCharacters: []
-};
-
-
 const favouritesSlice = createSlice({
     name: "favourites",
-    initialState,
+    initialState : {
+        favouriteCharacters: []
+    },
     reducers:{
         addFavourite: (state, action) => {
             if(!state.favouriteCharacters.some(character => character.id === action.payload.id)) {
